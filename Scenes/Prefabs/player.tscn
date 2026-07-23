@@ -1,0 +1,145 @@
+[gd_scene format=3 uid="uid://bw8crq2vx2xsj"]
+
+[ext_resource type="Script" uid="uid://b8bfgp0i3u2ng" path="res://Scripts/Player/Player.gd" id="1_imxsi"]
+[ext_resource type="Texture2D" uid="uid://00ns6cfbwrll" path="res://Art/Player/AxolotFall1.png" id="2_jhd5j"]
+[ext_resource type="Texture2D" uid="uid://dgm2m7wsrdmmf" path="res://Art/Player/AxolotFall2.png" id="3_tdw85"]
+[ext_resource type="Texture2D" uid="uid://d030dww4in68a" path="res://Art/Player/AxolotFall3.png" id="4_0opq3"]
+[ext_resource type="Texture2D" uid="uid://cthr5jtgnwy2s" path="res://Art/Player/AxolotIdle1.png" id="5_kxcka"]
+[ext_resource type="Texture2D" uid="uid://cyrk7mpgpf7u3" path="res://Art/Player/AxolotIdle2.png" id="6_8xt4h"]
+[ext_resource type="Texture2D" uid="uid://clbjiahbwyi6g" path="res://Art/Player/AxolotlJump1.png" id="7_padmu"]
+[ext_resource type="Texture2D" uid="uid://bcs4quh24hr25" path="res://Art/Player/AxolotlJump2.png" id="8_3u4h1"]
+[ext_resource type="Texture2D" uid="uid://ca3c8yi5qv0ao" path="res://Art/Player/AxolotlJump3.png" id="9_wku6q"]
+[ext_resource type="Texture2D" uid="uid://dd3dlnk1sy1ic" path="res://Art/Player/AxolotlJump4.png" id="10_4d5ba"]
+[ext_resource type="Texture2D" uid="uid://8vxw6vqajrss" path="res://Art/Player/AxolotlWalk1.png" id="11_o0o8v"]
+[ext_resource type="Texture2D" uid="uid://b3iu3wdu2ybpg" path="res://Art/Player/AxolotlWalk2.png" id="12_0qfkv"]
+[ext_resource type="Texture2D" uid="uid://c6g8buuaypyd7" path="res://Art/Player/AxolotlWalk3.png" id="13_r1wtp"]
+[ext_resource type="Texture2D" uid="uid://c6ksmw8o7r11s" path="res://Art/Player/AxolotlWalk4.png" id="14_shwlg"]
+[ext_resource type="Texture2D" uid="uid://jvl6y8s2vbvu" path="res://Art/Player/AxolotlWalk5.png" id="15_i64xu"]
+[ext_resource type="Texture2D" uid="uid://dfc5uixy0mjyd" path="res://Art/Player/AxolotlWalk6.png" id="16_f68l1"]
+[ext_resource type="Texture2D" uid="uid://8krog0s8wj0b" path="res://Art/Player/AxolotlWallHold.png" id="17_25cvw"]
+[ext_resource type="Texture2D" uid="uid://d2nn62hn1lras" path="res://Art/Player/AxolotlWallJump1.png" id="18_jih6h"]
+[ext_resource type="Texture2D" uid="uid://cmtrbn5ea4xnl" path="res://Art/Player/AxolotlWallJump2.png" id="19_d7fun"]
+[ext_resource type="Texture2D" uid="uid://b58dih22oyccx" path="res://Art/Player/AxolotlWallJump3.png" id="20_4euai"]
+[ext_resource type="Texture2D" uid="uid://ckgi6syasgn5e" path="res://Art/Player/AxolotlWallJump4.png" id="21_pfi3k"]
+[ext_resource type="Texture2D" uid="uid://ck55c4fd40sw0" path="res://Art/Player/AxolotlWallJump5.png" id="22_dob30"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgqfp"]
+size = Vector2(16, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hgqfp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jhd5j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tdw85")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0opq3")
+}],
+"loop": 0,
+"name": &"Fall",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_kxcka")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8xt4h")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_padmu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_3u4h1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_wku6q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_4d5ba")
+}],
+"loop": 0,
+"name": &"Jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_o0o8v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_0qfkv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_r1wtp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_shwlg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_i64xu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_f68l1")
+}],
+"loop": 1,
+"name": &"Walk",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_25cvw")
+}],
+"loop": 0,
+"name": &"WallHold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_jih6h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_d7fun")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_4euai")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_pfi3k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_dob30")
+}],
+"loop": 0,
+"name": &"WallJump",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=1511372382]
+script = ExtResource("1_imxsi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1454035998]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_hgqfp")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1634739537]
+position = Vector2(0, -48)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+
+[node name="GravCooldown" type="Timer" parent="." unique_id=587517798]
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="." unique_id=1582841571]
+position = Vector2(5, -10)
+sprite_frames = SubResource("SpriteFrames_hgqfp")
+animation = &"Jump"
+
+[connection signal="timeout" from="GravCooldown" to="." method="grav_cooldown_timeout"]
