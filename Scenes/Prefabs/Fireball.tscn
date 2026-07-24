@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://d3ep8p55a0phg"]
+
+[ext_resource type="Script" uid="uid://bspqw0xqkppie" path="res://Scenes/Prefabs/fireball.gd" id="1_0aip3"]
+[ext_resource type="Texture2D" uid="uid://dsnn3ut0nbj03" path="res://Art/World/Fireball1.png" id="2_07u3o"]
+[ext_resource type="Texture2D" uid="uid://7pvybbt0wanc" path="res://Art/World/Fireball2.png" id="3_x5s28"]
+[ext_resource type="Texture2D" uid="uid://s8f88qyp6164" path="res://Art/World/Fireball3.png" id="4_3cvxy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_66daj"]
+radius = 7.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hgqfp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_07u3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_x5s28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3cvxy")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="RigidBody2D" type="RigidBody2D" unique_id=334642346]
+scale = Vector2(1.5, 1.5)
+contact_monitor = true
+max_contacts_reported = 10
+script = ExtResource("1_0aip3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1398777412]
+shape = SubResource("CircleShape2D_66daj")
+
+[node name="Fireball" type="Node2D" parent="." unique_id=1464923800]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=351292906]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=99744372]
+shape = SubResource("CircleShape2D_66daj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=954368416]
+position = Vector2(-3, 0)
+sprite_frames = SubResource("SpriteFrames_hgqfp")
+autoplay = "default"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -9,6 +9,7 @@ var tileposition
 var collisionposition
 var collision
 var tilename
+var direction
 var normal
 var side
 var bounceforce = 0
@@ -20,22 +21,20 @@ var jumpgrav = 5000
 var fallgrav = 7000
 var slidegrav = 3000
 var jumpforce = 1300
-var walljumpforce = Vector2(800,1200)
+var walljumpforce = Vector2(600,800)
 var acceleration = 200
 var state = states.idle
-
 var coyotetime = 0.35
 var coyotetimer = 0.0
 var jumpbuffertime = 0.35
 var jumpbuffertimer = 0.0
-
 var normal_scale = Vector2(1,1)
 var jump_scale = Vector2(0.85,1.15)
 var land_scale = Vector2(1.3,0.7)
 var squish_speed = 12
-
 var was_on_ground = false
 var walljumping = false
+var dashforce = 2500
 
 enum states {
 	walk,
@@ -181,8 +180,9 @@ func jump(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, 10)
 	
-	if is_on_wall() and !is_on_floor() and !is_on_ceiling():
-		state = states.wallslide
+	if tilename == "Block" and (side == "left" or side == "right"):
+		if is_on_wall() and !is_on_floor() and !is_on_ceiling():
+			state = states.wallslide
 	
 	if velocity.y >= 0 and !is_on_floor() and gravitydirection == 1:
 		state = states.fall
@@ -203,8 +203,9 @@ func fall(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, 10)
 	
-	if is_on_wall() and !is_on_floor() and !is_on_ceiling():
-		state = states.wallslide
+	if tilename == "Block" and (side == "left" or side == "right"):
+		if is_on_wall() and !is_on_floor() and !is_on_ceiling():
+			state = states.wallslide
 	
 	if jumpbuffertimer > 0 and coyotetimer > 0:
 		jumpbuffertimer = 0
@@ -219,6 +220,10 @@ func fall(delta):
 
 
 func wallslide(delta):
+	if tilename != "Block" or (side != "left" and side != "right"):
+		state = states.idle
+		return
+	
 	if !is_on_wall():
 		state = states.fall
 		return
@@ -244,7 +249,6 @@ func walljump(delta):
 	if side == "left":
 		velocity.x = walljumpforce.x
 		sprite.flip_h = true
-	
 	elif side == "right":
 		velocity.x = -walljumpforce.x
 		sprite.flip_h = false
@@ -264,38 +268,57 @@ func check_tile_collisions():
 		collision = get_slide_collision(i)
 		normal = collision.get_normal()
 		collisionposition = collision.get_position()
-	
+		
 		var tile_lookup_position = collisionposition - normal * 1
-	
+		
 		tileposition = tilemap.local_to_map(
 			tilemap.to_local(tile_lookup_position)
 		)
-	
+		
 		tiledata = tilemap.get_cell_tile_data(tileposition)
-	
+		
 		if tiledata == null:
 			continue
-	
+		
 		bounceforce = tiledata.get_custom_data("BounceForce")
 		tilename = tiledata.get_custom_data("Name")
+		direction = tiledata.get_custom_data("Direction")
 		friction = tiledata.get_custom_data("Friction")
-	
+		
 		if normal.x >= 0.5:
 			side = "left"
 			velocity.x = -bounceforce
-	
+		
 		elif normal.x <= -0.5:
 			side = "right"
 			velocity.x = bounceforce
-	
+		
 		elif normal.y >= 0.5:
 			side = "top"
 			velocity.y = -bounceforce * 1.5
-	
+		
 		elif normal.y <= -0.5:
 			side = "bottom"
 			velocity.y = bounceforce * 1.5
-	
+		
+		if tilename == "DashBlock":
+			var dash_direction = Vector2.ZERO
+			
+			if direction == "Right":
+				dash_direction = Vector2.RIGHT
+			elif direction == "Left":
+				dash_direction = Vector2.LEFT
+			elif direction == "Up":
+				dash_direction = Vector2.UP
+			elif direction == "Down":
+				dash_direction = Vector2.DOWN
+			
+			if dash_direction != Vector2.ZERO:
+				var collision_dot = normal.dot(dash_direction)
+				
+				if collision_dot >= 0:
+					velocity = dash_direction * dashforce
+		
 		if tilename == "Spike":
 			get_tree().reload_current_scene()
 			return
